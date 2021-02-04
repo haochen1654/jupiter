@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laioffer.job.entity.ExtractRequestBody;
 import com.laioffer.job.entity.ExtractResponseItem;
 import com.laioffer.job.entity.Extraction;
-import com.laioffer.job.entity.Item;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpPost;
@@ -15,7 +14,12 @@ import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class MonkeyLearnClient {
     private static final String EXTRACT_URL = "https://api.monkeylearn.com/v3/extractors/ex_YCya9nrn/extract/";
