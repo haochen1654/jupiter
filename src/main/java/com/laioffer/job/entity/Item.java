@@ -22,9 +22,6 @@ public class Item {
     private Set<String> keywords;
     private boolean favorite;
 
-    public Item() {
-    }
-
     public Item(String id, String title, String location, String companyLogo, String url, String description, Set<String> keywords, boolean favorite) {
         this.id = id;
         this.title = title;

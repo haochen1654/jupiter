@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.Set;
 
 @WebServlet(name = "HistoryServlet", urlPatterns = {"/history"})
-public class HistoryServlet extends HttpServlet {
+public class HistoryServlet extends HttpServlet implements ServletBase{
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("application/json");
         ObjectMapper mapper = new ObjectMapper();
-
+        validateSession(mapper, request, response);
         String userId = request.getParameter("user_id");
 
         MySQLConnection connection = new MySQLConnection();
@@ -34,8 +34,8 @@ public class HistoryServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         ObjectMapper mapper = new ObjectMapper();
+        validateSession(mapper, request, response);
         HistoryRequestBody body = mapper.readValue(request.getReader(), HistoryRequestBody.class);
-
         MySQLConnection connection = new MySQLConnection();
         connection.setFavoriteItems(body.userId, body.favorite);
         connection.close();
@@ -48,9 +48,8 @@ public class HistoryServlet extends HttpServlet {
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         ObjectMapper mapper = new ObjectMapper();
-
+        validateSession(mapper, request, response);
         HistoryRequestBody body = mapper.readValue(request.getReader(), HistoryRequestBody.class);
-
         MySQLConnection connection = new MySQLConnection();
         connection.unsetFavoriteItems(body.userId, body.favorite.getId());
         connection.close();

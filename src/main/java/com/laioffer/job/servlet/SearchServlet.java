@@ -13,9 +13,12 @@ import java.util.List;
 import java.util.Set;
 
 @WebServlet(name = "SearchServlet", urlPatterns = {"/search"})
-public class SearchServlet extends HttpServlet {
+public class SearchServlet extends HttpServlet implements ServletBase {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        validateSession(mapper, request, response);
 
         String userId = request.getParameter("user_id");
         double lat = Double.parseDouble(request.getParameter("lat"));
@@ -32,7 +35,6 @@ public class SearchServlet extends HttpServlet {
             item.setFavorite(favoritedItemIds.contains(item.getId()));
         }
 
-        ObjectMapper mapper = new ObjectMapper();
         response.setContentType("application/json");
         response.getWriter().print(mapper.writeValueAsString(items));
 
